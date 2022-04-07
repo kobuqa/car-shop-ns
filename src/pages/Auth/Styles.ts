@@ -25,6 +25,7 @@ const Title = styled.h1`
 `;
 
 const Form = styled.form`
+  width: 100%;
   padding: 0 20px;
   box-sizing: border-box;
   display: flex;
