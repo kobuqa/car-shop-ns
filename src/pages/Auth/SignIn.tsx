@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import { Input } from '../../shared/Input/Input';
@@ -13,6 +14,7 @@ import {
 } from './Styles';
 
 export const SignIn: React.FC = () => {
+  const navigate = useNavigate();
   const { signin, error, setError } = useAuth();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -36,6 +38,7 @@ export const SignIn: React.FC = () => {
   const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
     signin && (await signin(email, password));
+    navigate(ROUTES.DASHBOARD);
   };
 
   return (

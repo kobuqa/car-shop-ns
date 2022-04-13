@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import { Input } from '../../shared/Input/Input';
@@ -16,6 +17,7 @@ import {
 } from './Styles';
 
 export const SignUp: React.FC = () => {
+  const navigate = useNavigate();
   const { signup, error, setError } = useAuth();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -47,17 +49,17 @@ export const SignUp: React.FC = () => {
 
   const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const isConfirmedPassword = isPasswordConfimed(password, confirmPassword);
 
-    if (!isPasswordConfimed(password, confirmPassword)) {
+    if (!isConfirmedPassword) {
       toast.error(ERROR_MESSAGES.PASSWORD_CONFIRMATION);
-    } else if (
-      isPasswordConfimed(password, confirmPassword) &&
-      isEmailValid &&
-      isPasswordValid
-    ) {
+    }
+
+    if (isConfirmedPassword && isEmailValid && isPasswordValid) {
       signup && (await signup(email, password));
+      navigate(ROUTES.DASHBOARD);
     } else {
-      toast.error(ERROR_MESSAGES.DEFAULT);
+      toast.error(ERROR_MESSAGES.SUBMIT_VALIDATION);
     }
   };
 
@@ -72,7 +74,6 @@ export const SignUp: React.FC = () => {
             placeholder="Email"
             type="email"
             value={email}
-            hintMessage={HINT_MESSAGES.EMAIL_VALIDATION}
             regEx={REG_EX.EMAIL}
             isValid={isEmailValid}
             setIsValid={setIsEmailValid}
