@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { API, URLS } from '../api/urls';
+import { ERROR_MESSAGES } from '../utils/messages';
 
 export interface IAuthContext {
-  signin?: any;
-  signup?: any;
-  logout?: any;
+  signin?: (email: string, password: string) => void;
+  signup?: (email: string, password: string) => void;
+  logout?: () => void;
   token?: string;
   error?: string;
   setError?: React.Dispatch<React.SetStateAction<string>>;
@@ -27,7 +28,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         email,
         password,
       })
-      .catch(() => setError('Failed to sign up'));
+      .catch(() => setError(ERROR_MESSAGES.SIGN_UP));
   };
 
   const signin = (email: string, password: string) => {
@@ -37,12 +38,12 @@ export const AuthProvider: React.FC = ({ children }) => {
         password,
       })
       .then((result) => console.log('success:', result))
-      .catch(() => setError('Failed to sign in'));
+      .catch(() => setError(ERROR_MESSAGES.SIGN_IN));
   };
 
   const logout = () => {
     axios.post(`${API}${URLS.LOG_OUT}`).catch(() => {
-      setError('Failed to logout');
+      setError(ERROR_MESSAGES.LOG_OUT);
     });
   };
 

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useAuth } from '../../contexts/AuthContext';
 import { Input } from '../../shared/Input/Input';
-import { HINT_MESSAGES } from '../../utils/messages';
-import { REG_EX } from '../../utils/regEx';
 import { ROUTES } from '../../utils/routes';
 import {
   Container,
@@ -37,8 +35,7 @@ export const SignIn: React.FC = () => {
 
   const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await signin(email, password);
-    console.log('signed in');
+    signin && (await signin(email, password));
   };
 
   return (

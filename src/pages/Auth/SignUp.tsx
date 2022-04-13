@@ -55,7 +55,7 @@ export const SignUp: React.FC = () => {
       isEmailValid &&
       isPasswordValid
     ) {
-      await signup(email, password);
+      signup && (await signup(email, password));
     } else {
       toast.error(ERROR_MESSAGES.DEFAULT);
     }

@@ -2,6 +2,9 @@ export const ERROR_MESSAGES = {
   DEFAULT: 'Smth went wrong',
   VALIDATION: 'The value you entered is not valid.',
   PASSWORD_CONFIRMATION: 'The passwords you entered do not match.',
+  SIGN_IN: 'Failed to sign in',
+  SIGN_UP: 'Failed to sign up',
+  LOG_OUT: 'Failed to logout',
 };
 
 export const HINT_MESSAGES = {
