@@ -15,9 +15,7 @@ const StyledInput = styled.input`
   transition: 0.5s;
 
   :focus {
-    border: 1px solid #0070c9;
-    box-shadow: 0 0 0 1px #0070c9;
-    color: #494949;
+    border: 2px solid #0070c9;
   }
 `;
 
@@ -33,4 +31,13 @@ const StyledSubmitInput = styled(StyledInput)`
   }
 `;
 
-export { StyledInput, StyledSubmitInput };
+const Hint = styled.span`
+  margin-left: 5px;
+`;
+
+const Error = styled.span`
+  margin-left: 5px;
+  color: #ff0000;
+`;
+
+export { StyledInput, StyledSubmitInput, Hint, Error };

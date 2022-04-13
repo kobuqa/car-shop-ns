@@ -1,12 +1,6 @@
-import { REG_EX } from './regEx';
-
-export const isPasswordValid = (password: string) => {
-  return REG_EX.PASSWORD.test(password);
-};
-
 export const isPasswordConfimed = (
   password: string,
-  passwordConfirmation: string
+  confirmPassword: string
 ) => {
-  return password !== passwordConfirmation ? false : true;
+  return password !== confirmPassword ? false : true;
 };

@@ -44,4 +44,21 @@ const NavTitle = styled.h6`
   letter-spacing: -0.016em;
 `;
 
-export { Wrapper, Container, Title, Form, StyledNavLink, NavTitle };
+const ErrorMessage = styled.div`
+  padding: 5px;
+  text-align: center;
+  background-color: #fef0f0;
+  border: 1px solid #de071c;
+  color: #de071c;
+  border-radius: 5px;
+`;
+
+export {
+  Wrapper,
+  Container,
+  Title,
+  Form,
+  StyledNavLink,
+  NavTitle,
+  ErrorMessage,
+};

@@ -1,12 +1,14 @@
+import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
 import { API, URLS } from '../api/urls';
 
 export interface IAuthContext {
   signin?: any;
   signup?: any;
   logout?: any;
-  currentUser?: string;
+  token?: string;
+  error?: string;
+  setError?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AuthContext = React.createContext<IAuthContext>({});
@@ -16,13 +18,16 @@ export const useAuth = () => {
 };
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<string>('');
+  const [token, setToken] = useState<string>('');
+  const [error, setError] = useState<string>('');
 
   const signup = (email: string, password: string) => {
-    axios.post(`${API}${URLS.SIGN_UP}`, {
-      email,
-      password,
-    });
+    axios
+      .post(`${API}${URLS.SIGN_UP}`, {
+        email,
+        password,
+      })
+      .catch(() => setError('Failed to sign up'));
   };
 
   const signin = (email: string, password: string) => {
@@ -32,18 +37,22 @@ export const AuthProvider: React.FC = ({ children }) => {
         password,
       })
       .then((result) => console.log('success:', result))
-      .catch((error) => console.log('error:', error));
+      .catch(() => setError('Failed to sign in'));
   };
 
   const logout = () => {
-    axios.post(`${API}${URLS.LOG_OUT}`);
+    axios.post(`${API}${URLS.LOG_OUT}`).catch(() => {
+      setError('Failed to logout');
+    });
   };
 
   const value: IAuthContext = {
     signin,
     signup,
     logout,
-    currentUser,
+    token,
+    error,
+    setError,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
